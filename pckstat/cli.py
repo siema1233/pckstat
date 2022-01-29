@@ -60,7 +60,7 @@ def file_parsed(data: str) -> list:
 def pckstat(architecture):
     """Print parsed repository"""
     response = requests.get('http://ftp.uk.debian.org/debian/dists/stable/main/Contents-' + architecture + '.gz')
-
+    response.raise_for_status()
     data = gzip.decompress(response.content).decode("utf-8")
 
     for package, number in file_parsed(data)[:10]:
